@@ -1,0 +1,26 @@
+[
+    {
+        "model": "main.Question",
+        "pk": 1,
+        "fields": {
+            "lesson": 1,
+            "correct_answer": "dog",
+            "word": "inu",
+            "created_at": "2022-11-24T13:20:30+03:00",
+            "updated_at": "2022-11-24T13:20:30+03:00",
+            "is_deleted": false
+        }
+    },
+    {
+        "model": "main.Question",
+        "pk": 2,
+        "fields": {
+            "lesson": 1,
+            "correct_answer": "cat",
+            "word": "neko",
+            "created_at": "2022-11-24T13:20:30+03:00",
+            "updated_at": "2022-11-24T13:20:30+03:00",
+            "is_deleted": false
+        }
+    }
+]
