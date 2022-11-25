@@ -1,0 +1,46 @@
+[
+    {
+        "model": "main.Choice",
+        "pk": 1,
+        "fields": {
+            "question": 1,
+            "value": "dog",
+            "created_at": "2022-11-24T13:20:30+03:00",
+            "updated_at": "2022-11-24T13:20:30+03:00",
+            "is_deleted": false
+        }
+    },
+    {
+        "model": "main.Choice",
+        "pk": 2,
+        "fields": {
+            "question": 1,
+            "value": "fish",
+            "created_at": "2022-11-24T13:20:30+03:00",
+            "updated_at": "2022-11-24T13:20:30+03:00",
+            "is_deleted": false
+        }
+    },
+    {
+        "model": "main.Choice",
+        "pk": 3,
+        "fields": {
+            "question": 2,
+            "value": "rabbit",
+            "created_at": "2022-11-24T13:20:30+03:00",
+            "updated_at": "2022-11-24T13:20:30+03:00",
+            "is_deleted": false
+        }
+    },
+    {
+        "model": "main.Choice",
+        "pk": 4,
+        "fields": {
+            "question": 2,
+            "value": "cat",
+            "created_at": "2022-11-24T13:20:30+03:00",
+            "updated_at": "2022-11-24T13:20:30+03:00",
+            "is_deleted": false
+        }
+    }
+]
