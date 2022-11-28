@@ -28,12 +28,11 @@ const LessonPage = () => {
 	};
 
 	const storeAnswer = (value, index) => {
-		setAnswer(
-			answer.map((elem) => ({
-				question_id: elem.question_id,
-				answer: elem.question_id === index ? value : elem.answer,
-			}))
-		);
+		const answerState = answer.map((elem) => ({
+			question_id: elem.question_id,
+			answer: elem.question_id === index ? value : elem.answer,
+		}))
+		setAnswer(answerState);
 	};
 
 	const renderQuestions = () => {

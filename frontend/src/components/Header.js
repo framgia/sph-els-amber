@@ -10,8 +10,8 @@ const Header = () => {
 			</Box>
 			<Spacer />
 			<ButtonGroup gap={2}>
-				<Link to="">Categories</Link>
-				<Link to="">Profile</Link>
+				<Link to="#">Categories</Link>
+				<Link to="#">Profile</Link>
 			</ButtonGroup>
 		</Flex>
 	);
