@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Text, Box, SimpleGrid, Container, Button } from '@chakra-ui/react';
 
 import Question from './Question';
 import data from './data.json';
 
 const LessonPage = () => {
+	const history = useHistory();
+
 	const [lesson, setLesson] = useState(data);
 	const [progress, setProgress] = useState(0);
 
 	const handleSubmit = () => {
-		// TODO submit the answers and generate results
+		history.push({
+			pathname: '/results',
+			state: {lesson: lesson, answer: answer}
+		});
 	};
 
 	let initialAnswerState = [];
