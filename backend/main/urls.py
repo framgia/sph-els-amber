@@ -12,7 +12,7 @@ urlpatterns = [
     path('lessons/<int:pk>/', LessonDetail.as_view(), name='lesson-detail'),
     path('questions/<int:pk>/', QuestionDetail.as_view(), name='question-detail'),
     path('choices/<int:pk>/', ChoiceDetail.as_view(), name='choice-detail'),
-    
+
     path('answers/', AnswerList.as_view(), name='answer-list'),
-    path('answers/<int:pk>', AnswerDetail.as_view(), name='answer-detail'),
+    path('answers/<int:pk>/', AnswerDetail.as_view(), name='answer-detail'),
 ]
