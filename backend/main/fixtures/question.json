@@ -22,29 +22,5 @@
             "updated_at": "2022-11-24T13:20:30+03:00",
             "is_deleted": false
         }
-    },
-    {
-        "model": "main.Question",
-        "pk": 3,
-        "fields": {
-            "lesson": 1,
-            "correct_answer": "rat",
-            "word": "nezumi",
-            "created_at": "2022-11-24T13:20:30+03:00",
-            "updated_at": "2022-11-24T13:20:30+03:00",
-            "is_deleted": false
-        }
-    },
-    {
-        "model": "main.Question",
-        "pk": 4,
-        "fields": {
-            "lesson": 1,
-            "correct_answer": "rabbit",
-            "word": "usagi",
-            "created_at": "2022-11-24T13:20:30+03:00",
-            "updated_at": "2022-11-24T13:20:30+03:00",
-            "is_deleted": false
-        }
     }
 ]
