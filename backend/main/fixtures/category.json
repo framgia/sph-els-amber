@@ -3,8 +3,19 @@
         "model": "main.Category",
         "pk": 1,
         "fields": {
-            "title": "Basic",
-            "description": "This is the basic category",
+            "title": "Basic Animals Category",
+            "description": "This category contains Japanese words for animals",
+            "created_at": "2022-11-24T13:20:30+03:00",
+            "updated_at": "2022-11-24T13:20:30+03:00",
+            "is_deleted": false
+        }
+    },
+    {
+        "model": "main.Category",
+        "pk": 2,
+        "fields": {
+            "title": "Advanced Category",
+            "description": "This category contains advance Japanese words",
             "created_at": "2022-11-24T13:20:30+03:00",
             "updated_at": "2022-11-24T13:20:30+03:00",
             "is_deleted": false
