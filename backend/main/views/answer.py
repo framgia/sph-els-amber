@@ -15,14 +15,10 @@ class AnswerList(APIView):
     def post(self, request):
         serializer = AnswerSerializer(data=request.data)
 
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
 
-            response = Response('Answer added', status=status.HTTP_201_CREATED)
-        else:
-            response =  Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-        return response
+        return Response('Answer added', status=status.HTTP_201_CREATED)
            
   
 class AnswerDetail(generics.RetrieveAPIView):
