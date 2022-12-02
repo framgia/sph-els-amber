@@ -8,12 +8,12 @@ class AnswerSerializer(serializers.ModelSerializer):
         model = Answer
         fields = '__all__'
 
-    def create(self, validated_data):
+    def save(self, validated_data):
         choice = Choice.objects.get(pk=self.data['choice'])
         question = Question.objects.get(pk=self.data['question'])
         is_correct = True if question.correct_answer == choice.value else False
 
-        answer = Answer(
+        answer = Answer.objects.create(
             user=validated_data['user'],
             question=validated_data['question'],
             lesson=validated_data['lesson'],
@@ -21,5 +21,4 @@ class AnswerSerializer(serializers.ModelSerializer):
             is_correct=is_correct,
         )
         
-        answer.save()
         return answer

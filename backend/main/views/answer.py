@@ -16,7 +16,7 @@ class AnswerList(APIView):
         serializer = AnswerSerializer(data=request.data)
 
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        serializer.save(serializer.validated_data)
 
         return Response('Answer added', status=status.HTTP_201_CREATED)
            
