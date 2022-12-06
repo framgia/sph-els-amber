@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { fetchLesson, fetchQuestions, fetchAnswers } from '../../actions';
 import {
 	Container,
 	SimpleGrid,
@@ -10,74 +12,79 @@ import {
 	Th,
 	Td,
 	TableContainer,
-	Icon
+	Icon,
 } from '@chakra-ui/react';
-import { FaRegCircle, FaTimes } from 'react-icons/fa'
+import { FaRegCircle, FaTimes } from 'react-icons/fa';
 
-const ResultsPage = ({ location }) => {
-	const [result, setResult] = useState(0);
+const ResultsPage = ({ fetchLesson, fetchQuestions, fetchAnswers, match, lesson, questions, answers }) => {
 
 	useEffect(() => {
-		let count = 0;
-		lesson.questions.forEach((question) => {
-			answer.forEach((ans) => {
-				if (ans.question_id == question.id) {
-					if(ans.answer == question.correct_answer) {
-						count++;
-					}
-				}
-			});
-		});
-		setResult(count);
-	})
+		fetchLesson(match.params.id);
+		fetchQuestions(match.params.id);
+		fetchAnswers(match.params.id, 1);
+	}, []);
 
-	const { state: { lesson, answer } } = location;
-
-	const renderTableData = (lesson, answer) => {
-		let userAnswer, check;
-
-		return lesson.questions.map((question) => {
-			answer.forEach((ans) => {
-				if (ans.question_id == question.id) {
-					userAnswer = ans.answer;
-					check =
-						userAnswer === question.correct_answer ? true : false;
-				}
-			});
+	const renderTableData = (questions) => {
+		return questions.map((question) => {
+			let index = answers.map((answer) => answer.question).indexOf(question.id);
 			return (
 				<Tr key={question.id}>
-					<Td>{check ? <Icon as={FaRegCircle} color='green'/>: <Icon as={FaTimes} color='red'/> }</Td>
-					<Td>{question.word}</Td>
-					<Td>{userAnswer}</Td>
+					<Td textAlign="center">
+						{answers[index]?.is_correct ? (<Icon as={FaRegCircle} color="green" />) : ( <Icon as={FaTimes} color="red" />)}
+					</Td>
+					<Td textAlign="center">{question.word}</Td>
+					<Td textAlign="center">{answers[index]?.choice_string}</Td>
 				</Tr>
 			);
 		});
+	};
+
+	const renderResult = (answers, questions) => {
+		let result = 0;
+		answers.forEach((answer) => {
+			result += answer.is_correct ? 1 : 0;
+		});
+		return (
+			<Text align={'right'} as="b">
+				Result: {result} of {questions.length}
+			</Text>
+		);
 	};
 
 	return (
 		<Container maxW="container.md" my={5}>
 			<SimpleGrid columns={2} spacing={5} mb={4}>
 				<Text align={'left'} as="b">
-					{lesson.category}
+					{lesson?.category}
 				</Text>
-				<Text align={'right'} as="b">
-					Result: {result} of {lesson.questions.length}
-				</Text>
+				{renderResult(answers, questions)}
 			</SimpleGrid>
 			<TableContainer>
 				<Table>
 					<Thead>
 						<Tr>
-							<Th></Th>
-							<Th>Word</Th>
-							<Th>Answer</Th>
+							<Th textAlign="center">Remarks</Th>
+							<Th textAlign="center">Word</Th>
+							<Th textAlign="center">Answer</Th>
 						</Tr>
 					</Thead>
-					<Tbody>{renderTableData(lesson, answer)}</Tbody>
+					<Tbody>{renderTableData(questions)}</Tbody>
 				</Table>
 			</TableContainer>
 		</Container>
 	);
 };
 
-export default ResultsPage;
+const mapStateToProps = (state, ownProps) => {
+	return {
+		lesson: state.lessons[ownProps.match.params.id],
+		questions: Object.values(state.questions),
+		answers: Object.values(state.answers),
+	};
+};
+
+export default connect(mapStateToProps, {
+	fetchLesson,
+	fetchQuestions,
+	fetchAnswers,
+})(ResultsPage);

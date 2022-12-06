@@ -7,13 +7,14 @@ from ..models.answer import Answer
 
 class AnswerList(APIView):
     def get(self, request):
-        answers = Answer.objects.all()
-        serializer = AnswerSerializer(answers, many=True)
+        get_data = request.query_params
+        answers = Answer.objects.filter(lesson=get_data['lesson'], user=get_data['user'])
+        serializer = AnswerSerializer(answers, context={'request': request}, many=True)
 
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = AnswerSerializer(data=request.data)
+        serializer = AnswerSerializer(data=request.data, context={'request': request})
 
         serializer.is_valid(raise_exception=True)
         serializer.save(serializer.validated_data)
