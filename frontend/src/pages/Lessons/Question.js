@@ -1,7 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { fetchChoices } from '../../actions';
 import { Text, Center, Box, Stack, SimpleGrid, Button } from '@chakra-ui/react';
 
-const Question = ({question, choices, updateProgress, storeAnswer}) => {
+const Question = ({ user, lessonId, question, choices, updateProgress, storeAnswer, fetchChoices }) => {
+
+	useEffect(() => {
+		fetchChoices(lessonId, question.id);
+	}, [])
+
 	const [answer, setAnswer] = useState(0);
 
 	const handleProgress = () => {
@@ -11,7 +18,7 @@ const Question = ({question, choices, updateProgress, storeAnswer}) => {
 	};
 
 	const handleAnswer = (value) => {
-		storeAnswer(value, question.id);
+		storeAnswer(user, lessonId, question.id, value);
 	};
 
 	const renderChoices = (id, choices) => {
@@ -23,7 +30,7 @@ const Question = ({question, choices, updateProgress, storeAnswer}) => {
 						colorScheme={answer === choice.id ? `green` : `blue`}
 						onClick={() => {
 							setAnswer(choice.id);
-							handleAnswer(choice.value);
+							handleAnswer(choice.id);
 							handleProgress();
 						}}>
 						{choice.value}
@@ -49,4 +56,10 @@ const Question = ({question, choices, updateProgress, storeAnswer}) => {
 	);
 };
 
-export default Question;
+const mapStateToProps = (state) => {
+	return {
+		choices: Object.values(state.choices)
+	}
+}
+
+export default connect(mapStateToProps, { fetchChoices })(Question);

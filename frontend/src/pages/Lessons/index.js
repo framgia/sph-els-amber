@@ -1,57 +1,78 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { fetchLesson, fetchQuestions, createAnswer } from '../../actions';
 import { Text, Box, SimpleGrid, Container, Button } from '@chakra-ui/react';
-
 import Question from './Question';
-import data from './data.json';
+import history from '../../history';
 
-const LessonPage = () => {
-	const history = useHistory();
+const LessonPage = ({ fetchLesson, fetchQuestions, createAnswer, match, lessons, questions }) => {
+	
+	useEffect(() => {
+		fetchLesson(match.params.id);
+		fetchQuestions(match.params.id);
+	}, []);
 
-	const [lesson, setLesson] = useState(data);
 	const [progress, setProgress] = useState(0);
+	const [localAnswer, setLocalAnswer] = useState([]);
 
 	const handleSubmit = () => {
-		history.push({
-			pathname: '/results',
-			state: {lesson: lesson, answer: answer}
-		});
+		localAnswer.forEach((answer) => {
+			createAnswer(answer);
+		})
+		
+		history.push(`results/`);
 	};
-
-	let initialAnswerState = [];
-	let i = 0;
-	lesson.questions.forEach(() => {
-		initialAnswerState.push({
-			question_id: ++i,
-			answer: null,
-		});
-	});
-
-	const [answer, setAnswer] = useState(initialAnswerState);
 
 	const updateProgress = (count) => {
 		setProgress(progress + count);
 	};
 
-	const storeAnswer = (value, index) => {
-		const answerState = answer.map((elem) => ({
-			question_id: elem.question_id,
-			answer: elem.question_id === index ? value : elem.answer,
-		}))
-		setAnswer(answerState);
+	const storeAnswer = (user, lesson, question, answer) => {
+		const answerState = {
+			"user": user,
+			"lesson": lesson,
+			"question": question,
+			"choice": answer,
+		};
+
+		if(localAnswer.length != 0){
+			let tempArr = localAnswer;
+			let index = localAnswer.map((elem) => elem.question).indexOf(question);
+
+			if(index != -1){
+				tempArr[index] = answerState;
+			} else {
+				tempArr.push(answerState);
+			}
+
+			setLocalAnswer(tempArr);
+		} else {
+			setLocalAnswer([...localAnswer, answerState]);
+		}
 	};
 
-	const renderQuestions = () => {
-		const choices = lesson.choices;
-		return lesson.questions.map((question) => {
+	const renderCategory = (lessons, questions) => {
+		return (
+			<SimpleGrid columns={2} spacing={5}>
+				<Text align={'center'}>{lessons?.category}</Text>
+				<Text align={'right'}>
+					{progress} of {questions.length}
+				</Text>
+			</SimpleGrid>
+		);
+	};
+
+	const renderQuestions = (questions) => {
+		return questions.map((question) => {
 			return (
 				<Box my={12} key={question.id}>
 					<Question
 						key={question.id}
 						updateProgress={updateProgress}
 						storeAnswer={storeAnswer}
+						user={1}
 						question={question}
-						choices={choices}
+						lessonId={lessons?.id}
 					/>
 				</Box>
 			);
@@ -60,15 +81,8 @@ const LessonPage = () => {
 
 	return (
 		<Container maxW="container.md" my={5}>
-			<SimpleGrid columns={2} spacing={5}>
-				<Text align={'center'}>
-					{lesson.category}
-				</Text>
-				<Text align={'right'}>
-					{progress} of {lesson.questions.length}
-				</Text>
-			</SimpleGrid>
-			{renderQuestions()}
+			{renderCategory(lessons, questions)}
+			{renderQuestions(questions)}
 			<Button
 				mb={10}
 				float="right"
@@ -82,4 +96,15 @@ const LessonPage = () => {
 	);
 };
 
-export default LessonPage;
+const mapStateToProps = (state, ownProps) => {
+	return {
+		lessons: state.lessons[ownProps.match.params.id],
+		questions: Object.values(state.questions),
+	};
+};
+
+export default connect(mapStateToProps, {
+	fetchLesson,
+	fetchQuestions,
+	createAnswer
+})(LessonPage);
