@@ -10,6 +10,7 @@ const Header = () => {
 			</Box>
 			<Spacer />
 			<ButtonGroup gap={2}>
+				<Link to="/">Dashboard</Link>
 				<Link to="/categories">Categories</Link>
 				<Link to="#">Profile</Link>
 			</ButtonGroup>
