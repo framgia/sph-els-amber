@@ -12,14 +12,12 @@ import {
 
 const WordsLearned = ({ data }) => {
 	const renderTableData = (words) => {
-		return words.map((data) => {
-			return (
-				<Tr key={data.id}>
-					<Td textAlign="center">{data.word}</Td>
-					<Td textAlign="center">{data.answer}</Td>
-				</Tr>
-			);
-		});
+		return words.map((data) => (
+			<Tr key={data.id}>
+				<Td textAlign="center">{data.word}</Td>
+				<Td textAlign="center">{data.answer}</Td>
+			</Tr>
+		));
 	};
 
 	const renderTable = (array) => {

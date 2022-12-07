@@ -15,9 +15,9 @@ const CardContainer = ({ header, content, user, isRoot }) => {
 	};
 
 	const renderActivities = (data, user) => {
-		return data.map((activity) => {
-			return <ActivityLog key={activity.id} data={activity} user={user} />;
-		});
+		return data.map((activity) => ( 
+			<ActivityLog key={activity.id} data={activity} user={user} /> 
+		));
 	};
 
 	return (
