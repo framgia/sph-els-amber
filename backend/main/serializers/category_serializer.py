@@ -3,7 +3,7 @@ from ..models.category import Category
 from ..models.lesson import Lesson
 
 class CategorySerializer(serializers.ModelSerializer):
-    lesson_id = serializers.SerializerMethodField('get_lesson_id')
+    lesson_id = serializers.SerializerMethodField()
 
     class Meta:
         model = Category
