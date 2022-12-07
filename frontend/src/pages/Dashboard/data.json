@@ -1,0 +1,156 @@
+{
+    "user": {
+        "id": 1,
+        "name": "Anya Forger",
+        "avatar": "https://bit.ly/3F9iJ5P"
+    },
+    "headers": [
+        {
+            "id" : 1,
+            "title": "Activity Log"
+        }, 
+        {
+            "id" : 2,
+            "title": "Words Learned"
+        }
+    ],
+    "activities": [
+        {
+            "id": 1,
+            "lesson": "Basic Filipino",
+            "user": "Anya Forger",
+            "avatar": "https://bit.ly/3F9iJ5P",
+            "user_relations": null
+        },
+        {
+            "id": 2,
+            "lesson": null,
+            "user": "Anya Forger",
+            "avatar": "https://bit.ly/3F9iJ5P",
+            "user_relations": "Damian Desmond"
+        },
+        {
+            "id": 3,
+            "lesson": "Advance Japanese",
+            "user": "Loid Forger",
+            "avatar": "https://bit.ly/3P8cjIW",
+            "user_relations": null
+        },
+        {
+            "id": 4,
+            "lesson": "Advance Japanese",
+            "user": "Yor Forger",
+            "avatar": "https://bit.ly/3XYFjqr",
+            "user_relations": null
+        },
+        {
+            "id": 5,
+            "lesson": null,
+            "user": "Loid Forger",
+            "avatar": "https://bit.ly/3P8cjIW",
+            "user_relations": "Yor Forger"
+        }
+    ],
+    "words": [
+        {
+            "id": 1,
+            "word": "Magandang umaga",
+            "answer": "Good morning"
+        },
+        {
+            "id": 2,
+            "word": "Magandang gabi",
+            "answer": "Good evening"
+        },
+        {
+            "id": 3,
+            "word": "Ingat",
+            "answer": "Take care"
+        },
+        {
+            "id": 4,
+            "word": "Kamusta ka?",
+            "answer": "How are you?"
+        },
+        {
+            "id": 5,
+            "word": "Salamat",
+            "answer": "Thank you"
+        },
+        {
+            "id": 6,
+            "word": "Paalam",
+            "answer": "Goodbye"
+        },
+        {
+            "id": 7,
+            "word": "Walang anuman",
+            "answer": "You're welcome"
+        },
+        {
+            "id": 8,
+            "word": "Isa",
+            "answer": "One"
+        },
+        {
+            "id": 9,
+            "word": "Dalawa",
+            "answer": "Two"
+        },
+        {
+            "id": 10,
+            "word": "Tatlo",
+            "answer": "Three"
+        },
+        {
+            "id": 11,
+            "word": "Magandang umaga",
+            "answer": "Good morning"
+        },
+        {
+            "id": 12,
+            "word": "Magandang gabi",
+            "answer": "Good evening"
+        },
+        {
+            "id": 13,
+            "word": "Ingat",
+            "answer": "Take care"
+        },
+        {
+            "id": 14,
+            "word": "Kamusta ka?",
+            "answer": "How are you?"
+        },
+        {
+            "id": 15,
+            "word": "Salamat",
+            "answer": "Thank you"
+        },
+        {
+            "id": 16,
+            "word": "Paalam",
+            "answer": "Goodbye"
+        },
+        {
+            "id": 17,
+            "word": "Walang anuman",
+            "answer": "You're welcome"
+        },
+        {
+            "id": 18,
+            "word": "Isa",
+            "answer": "One"
+        },
+        {
+            "id": 19,
+            "word": "Dalawa",
+            "answer": "Two"
+        },
+        {
+            "id": 20,
+            "word": "Tatlo",
+            "answer": "Three"
+        }
+    ]
+}
