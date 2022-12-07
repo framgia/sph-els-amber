@@ -1,10 +1,14 @@
 from django.urls import path
+from .views.category import CategoryList, CategoryDetail
 from .views.lesson import LessonList, LessonDetail
 from .views.question import QuestionList, QuestionDetail
 from .views.choice import ChoiceList, ChoiceDetail
 from .views.answer import AnswerList, AnswerDetail
 
 urlpatterns = [
+    path('categories/', CategoryList.as_view(), name='category-list'),
+    path('categories/<int:pk>/', CategoryDetail.as_view(), name='category-detail'),
+
     path('lessons/', LessonList.as_view(), name='lesson-list'),
     path('lessons/<int:lesson>/questions/', QuestionList.as_view(), name='question-list'),
     path('lessons/<int:lesson>/questions/<int:question>/choices/', ChoiceList.as_view(), name='choice-list'),
