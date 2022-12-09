@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { fetchCategories } from '../../actions';
 import {
 	Container,
 	SimpleGrid,
@@ -11,25 +13,27 @@ import {
 	CardFooter,
 	Button,
 } from '@chakra-ui/react';
-import data from './data.json';
+import history from '../../history';
 
-const CategoriesPage = () => {
+const CategoriesPage = ({fetchCategories, categories}) => {
 
-    const [category, setCategory] = useState(data.categories);
+	useEffect(() => {
+		fetchCategories();
+	}, []);
 
-    const renderCard = (category) => {
-        return category.map((cat) => {
+    const renderCard = (categories) => {
+        return categories.map((category) => {
             return (
-                <Card key={cat.id} maxW="sm" variant="outline">
+                <Card key={category.id} maxW="sm" variant="outline">
 					<CardBody>
 						<Stack mt={2} spacing="3">
-							<Heading size="sm">{cat.title}</Heading>
-							<Text color="gray.600">{cat.description}</Text>
+							<Heading size="sm">{category.title}</Heading>
+							<Text color="gray.600">{category.description}</Text>
 						</Stack>
 					</CardBody>
 					<Divider />
 					<CardFooter>
-						<Button colorScheme="blue" px={8}>
+						<Button colorScheme="blue" px={8} onClick={() => history.push(`/lessons/${category.lesson_id}/`)} >
 							Start
 						</Button>
 					</CardFooter>
@@ -42,10 +46,16 @@ const CategoriesPage = () => {
 		<Container maxW="container.md" my={5}>
 			<Heading size="md">Categories</Heading>
 			<SimpleGrid minChildWidth='320px' columns={3} spacing={8} my={5}>
-				{renderCard(category)}
+				{renderCard(categories)}
 			</SimpleGrid>
 		</Container>
 	);
 };
 
-export default CategoriesPage;
+const mapStateToProps = (state) => {
+	return {
+		categories: Object.values(state.categories)
+	}
+}
+
+export default connect(mapStateToProps, { fetchCategories })(CategoriesPage);
