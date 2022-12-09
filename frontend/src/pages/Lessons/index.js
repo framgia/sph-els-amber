@@ -5,7 +5,7 @@ import { Text, Box, SimpleGrid, Container, Button } from '@chakra-ui/react';
 import Question from './Question';
 import history from '../../history';
 
-const LessonPage = ({ fetchLesson, fetchQuestions, createAnswer, match, lessons, questions }) => {
+const LessonPage = ({ fetchLesson, fetchQuestions, createAnswer, match, lesson, questions }) => {
 	
 	useEffect(() => {
 		fetchLesson(match.params.id);
@@ -51,10 +51,10 @@ const LessonPage = ({ fetchLesson, fetchQuestions, createAnswer, match, lessons,
 		}
 	};
 
-	const renderCategory = (lessons, questions) => {
+	const renderCategory = (lesson, questions) => {
 		return (
 			<SimpleGrid columns={2} spacing={5}>
-				<Text align={'center'}>{lessons?.category}</Text>
+				<Text align={'center'}>{lesson?.category}</Text>
 				<Text align={'right'}>
 					{progress} of {questions.length}
 				</Text>
@@ -72,7 +72,7 @@ const LessonPage = ({ fetchLesson, fetchQuestions, createAnswer, match, lessons,
 						storeAnswer={storeAnswer}
 						user={1}
 						question={question}
-						lessonId={lessons?.id}
+						lessonId={lesson?.id}
 					/>
 				</Box>
 			);
@@ -81,7 +81,7 @@ const LessonPage = ({ fetchLesson, fetchQuestions, createAnswer, match, lessons,
 
 	return (
 		<Container maxW="container.md" my={5}>
-			{renderCategory(lessons, questions)}
+			{renderCategory(lesson, questions)}
 			{renderQuestions(questions)}
 			<Button
 				mb={10}
@@ -98,7 +98,7 @@ const LessonPage = ({ fetchLesson, fetchQuestions, createAnswer, match, lessons,
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		lessons: state.lessons[ownProps.match.params.id],
+		lesson: state.lessons[ownProps.match.params.id],
 		questions: Object.values(state.questions),
 	};
 };

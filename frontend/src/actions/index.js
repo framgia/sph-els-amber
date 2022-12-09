@@ -5,7 +5,14 @@ import {
     FETCH_CHOICES,
     CREATE_ANSWER,
     FETCH_ANSWERS,
+    FETCH_CATEGORIES
 } from "./types";
+
+export const fetchCategories = () => async (dispatch) => {
+    const response = await api.get(`/api/categories`);
+
+    dispatch({type: FETCH_CATEGORIES, payload: response.data});
+}
 
 export const fetchLesson = (id) => async (dispatch) => {
     const response = await api.get(`/api/lessons/${id}/`);
