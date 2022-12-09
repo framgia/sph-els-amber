@@ -1,11 +1,16 @@
 from django.urls import path
+from .views.user import UserList, UserDetail
 from .views.category import CategoryList, CategoryDetail
 from .views.lesson import LessonList, LessonDetail
 from .views.question import QuestionList, QuestionDetail
 from .views.choice import ChoiceList, ChoiceDetail
 from .views.answer import AnswerList, AnswerDetail
+from .views.activity import ActivityList, ActivityDetail
 
 urlpatterns = [
+    path('users/', UserList.as_view(), name='user-list'),
+    path('users/<int:pk>/', UserDetail.as_view(), name='user-detail'),
+
     path('categories/', CategoryList.as_view(), name='category-list'),
     path('categories/<int:pk>/', CategoryDetail.as_view(), name='category-detail'),
 
@@ -19,4 +24,7 @@ urlpatterns = [
 
     path('answers/', AnswerList.as_view(), name='answer-list'),
     path('answers/<int:pk>/', AnswerDetail.as_view(), name='answer-detail'),
+
+    path('activity/', ActivityList.as_view(), name='activity-list'),
+    path('activity/<int:pk>/', ActivityDetail.as_view(), name='activity-detail'),
 ]
