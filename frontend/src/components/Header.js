@@ -2,7 +2,7 @@ import React from 'react';
 import { Flex, Box, Heading, Spacer, ButtonGroup } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
-const Header = () => {
+const Header = ({ isAuthenticated }) => {
 	return (
 		<Flex minWidth="max-content" alignItems="center" bg="blue.300" gap={2} p={2}>
 			<Box p={2}>
@@ -10,9 +10,14 @@ const Header = () => {
 			</Box>
 			<Spacer />
 			<ButtonGroup gap={2}>
-				<Link to="/">Dashboard</Link>
-				<Link to="/categories">Categories</Link>
-				<Link to="#">Profile</Link>
+				{ isAuthenticated ? (
+					<React.Fragment>
+						<Link to="/">Dashboard</Link>
+						<Link to="/categories">Categories</Link>
+						<Link to="#">Profile</Link>
+					</React.Fragment>
+					) : null
+				}
 			</ButtonGroup>
 		</Flex>
 	);

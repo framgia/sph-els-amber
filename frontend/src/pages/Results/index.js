@@ -13,11 +13,20 @@ import {
 	Td,
 	TableContainer,
 	Icon,
+	Button,
 } from '@chakra-ui/react';
-import { FaRegCircle, FaTimes } from 'react-icons/fa';
+import { FaRegCircle, FaTimes, FaChevronCircleRight } from 'react-icons/fa';
+import history from '../../history';
 
-const ResultsPage = ({ fetchLesson, fetchQuestions, fetchAnswers, match, lesson, questions, answers }) => {
-
+const ResultsPage = ({
+	fetchLesson,
+	fetchQuestions,
+	fetchAnswers,
+	match,
+	lesson,
+	questions,
+	answers,
+}) => {
 	useEffect(() => {
 		fetchLesson(match.params.id);
 		fetchQuestions(match.params.id);
@@ -71,6 +80,16 @@ const ResultsPage = ({ fetchLesson, fetchQuestions, fetchAnswers, match, lesson,
 					<Tbody>{renderTableData(questions)}</Tbody>
 				</Table>
 			</TableContainer>
+				<Button
+					float="right"
+					mt={10}
+					height="50px"
+					width="230px"
+					colorScheme="blue"
+					rightIcon={<FaChevronCircleRight />}
+					onClick={() => history.push('/')}>
+					Continue to Dashboard
+				</Button>
 		</Container>
 	);
 };
