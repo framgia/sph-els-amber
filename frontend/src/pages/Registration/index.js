@@ -10,7 +10,7 @@ const RegisterPage = () => {
 
 	return (
 		<Container maxW="container.sm" my={5}>
-			<AuthForm handleSubmit={onSubmit} type="Register"></AuthForm>
+			<AuthForm handleSubmit={onSubmit} type="Register" />
 		</Container>
 	);
 };

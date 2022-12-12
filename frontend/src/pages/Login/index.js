@@ -10,7 +10,7 @@ const LoginPage = () => {
 
 	return (
 		<Container maxW="container.sm" my={5}>
-            <AuthForm handleSubmit={onSubmit} type="Login"></AuthForm>
+			<AuthForm handleSubmit={onSubmit} type="Login" />
 		</Container>
 	);
 };

@@ -80,16 +80,17 @@ const ResultsPage = ({
 					<Tbody>{renderTableData(questions)}</Tbody>
 				</Table>
 			</TableContainer>
-				<Button
-					float="right"
-					mt={10}
-					height="50px"
-					width="230px"
-					colorScheme="blue"
-					rightIcon={<FaChevronCircleRight />}
-					onClick={() => history.push('/')}>
-					Continue to Dashboard
-				</Button>
+			<Button
+				float="right"
+				mt={10}
+				height="50px"
+				width="230px"
+				colorScheme="blue"
+				rightIcon={<FaChevronCircleRight />}
+				onClick={() => history.push('/')}
+			>
+				Continue to Dashboard
+			</Button>
 		</Container>
 	);
 };

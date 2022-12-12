@@ -10,13 +10,13 @@ const Header = ({ isAuthenticated }) => {
 			</Box>
 			<Spacer />
 			<ButtonGroup gap={2}>
-				{ isAuthenticated ? (
-					<React.Fragment>
+				{ !! isAuthenticated && (
+					<>
 						<Link to="/">Dashboard</Link>
 						<Link to="/categories">Categories</Link>
 						<Link to="#">Profile</Link>
-					</React.Fragment>
-					) : null
+					</>
+					)
 				}
 			</ButtonGroup>
 		</Flex>

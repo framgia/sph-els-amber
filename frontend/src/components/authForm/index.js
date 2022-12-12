@@ -23,10 +23,10 @@ const AuthForm = ({ type, handleSubmit }) => {
 			<CardBody pt={2}>
 				<Form
 					onSubmit={handleSubmit}
-					validate={ type == "Register" ? validateRegistration : validateLogin }
+					validate={ type === "Register" ? validateRegistration : validateLogin }
 					render={({ handleSubmit, submitting }) => (
 						<form onSubmit={handleSubmit}>
-							{type == 'Register' && (
+							{type === 'Register' && (
 								<InputControl
 									name="name"
 									label="Name"
@@ -43,7 +43,7 @@ const AuthForm = ({ type, handleSubmit }) => {
 								label="Password"
 								type="password"
 							/>
-							{type == 'Register' && (
+							{type === 'Register' && (
 								<InputControl
 									name="confirm"
 									label="Confirm Password"
@@ -66,10 +66,10 @@ const AuthForm = ({ type, handleSubmit }) => {
 				/>
 				<Center mt={4}>
 					<Text>
-						{type == 'Register'
+						{type === 'Register'
 							? 'Already have an account? '
 							: "Don't have an account yet? "}
-						{type == 'Register' ? (
+						{type === 'Register' ? (
 							<Link as={RouterLink} color="blue" to="/login">
 								Login here
 							</Link>
