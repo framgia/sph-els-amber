@@ -1,5 +1,5 @@
 from django.urls import path
-from .views.authentication import RegisterView, ChangePasswordView
+from .views.authentication import RegisterView, CustomObtainTokenView, LogoutView, ChangePasswordView
 from .views.user import UserList, UserDetail
 from .views.category import CategoryList, CategoryDetail
 from .views.lesson import LessonList, LessonDetail
@@ -10,10 +10,12 @@ from .views.activity import ActivityList, ActivityDetail
 
 urlpatterns = [
     path('register/', RegisterView.as_view(), name="register"),
-    path('change-password/', ChangePasswordView.as_view(), name="change-password"),
+    path('login/', CustomObtainTokenView.as_view(), name="login"),
+    path('logout/', LogoutView.as_view(), name="logout"),
 
     path('users/', UserList.as_view(), name='user-list'),
     path('users/<int:pk>/', UserDetail.as_view(), name='user-detail'),
+    path('users/<int:pk>/change-password/', ChangePasswordView.as_view(), name="change-password"),
 
     path('categories/', CategoryList.as_view(), name='category-list'),
     path('categories/<int:pk>/', CategoryDetail.as_view(), name='category-detail'),
