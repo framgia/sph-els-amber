@@ -26,9 +26,9 @@ class CustomObtainTokenView(ObtainAuthToken):
         try:
             user = User.objects.get(email=request.data['email'])
             if not user.check_password(request.data['password']):
-                return Response({"error": "Incorrect password"}, status=status.HTTP_200_OK)
+                return Response({"error": "Incorrect password"}, status=status.HTTP_400_BAD_REQUEST)
         except User.DoesNotExist:
-            return Response({"error": "User not found"}, status=status.HTTP_200_OK)
+            return Response({"error": "User not found"}, status=status.HTTP_400_BAD_REQUEST)
 
         data = {}
         data['username'] = request.data['email']
