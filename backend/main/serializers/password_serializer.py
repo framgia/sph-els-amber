@@ -18,7 +18,6 @@ class PasswordSerializer(serializers.ModelSerializer):
 
     def validate_current_password(self, value):
         user = self.context['request'].user
-        breakpoint()
         if not user.check_password(value):
             raise serializers.ValidationError("Current password is incorrect")
 
@@ -26,4 +25,4 @@ class PasswordSerializer(serializers.ModelSerializer):
         instance.set_password(validated_data['new_password'])
         instance.save()
 
-        return instance        
+        return instance
