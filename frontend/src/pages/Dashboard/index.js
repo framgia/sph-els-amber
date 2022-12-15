@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import {
 	Container,
 	Grid,
@@ -14,7 +15,7 @@ import {
 import CardContainer from '../../components/CardContainer';
 import data from './data.json';
 
-const DashboardPage = () => {
+const DashboardPage = ({ auth_user }) => {
 	const [content, setContent] = useState(data.activities);
 	const [words, setWords] = useState(data.words);
 	const [user, setUser] = useState(data.user);
@@ -43,13 +44,13 @@ const DashboardPage = () => {
 					<Wrap direction="row" mt={4}>
 						<Avatar
 							size="2xl"
-							src={user.avatar}
-							name={user.name}
+							src={null}
+							name={auth_user}
 							bg="gray.400"
 							alt="user"
 						/>
 						<Box align="center">
-							<Text fontSize="lg">{user.name}</Text>
+							<Text fontSize="lg">{auth_user}</Text>
 							{isRoot ? (
 								<React.Fragment>
 								<Button
@@ -85,4 +86,10 @@ const DashboardPage = () => {
 	);
 };
 
-export default DashboardPage;
+const mapStateToProps = (state) => {
+	return {
+		auth_user: state.auth.user
+	}
+};
+
+export default connect(mapStateToProps)(DashboardPage);

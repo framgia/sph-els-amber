@@ -5,17 +5,18 @@ import {
 	FormLabel,
 	FormErrorMessage,
 	FormHelperText,
+	Text,
 	Input,
 } from '@chakra-ui/react';
 
-const InputControl = ({ name, label, type, helper }) => {
+const InputControl = ({ name, label, type, helper, error }) => {
 	const { input, meta } = useField(name);
 	return (
-		<FormControl name={name} mb={4} isInvalid={meta.error && meta.touched}>
+		<FormControl name={name} mb={4} isInvalid={meta.error && meta.touched || error}>
 			<FormLabel htmlFor={name}>{label}</FormLabel>
-			<Input {...input} name={name} type={type} />
+			<Input {...input} id={name} name={name} type={type} />
 			<FormHelperText>{helper}</FormHelperText>
-			<FormErrorMessage>{meta.error}</FormErrorMessage>
+			<FormErrorMessage>{meta.error || error}</FormErrorMessage>
 		</FormControl>
 	);
 };
