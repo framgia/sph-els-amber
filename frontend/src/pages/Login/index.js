@@ -1,18 +1,29 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { login } from '../../actions';
 import { Container } from '@chakra-ui/react';
-import history from '../../history';
 import AuthForm from '../../components/authForm';
 
-const LoginPage = () => {
-	const onSubmit = () => {
-		history.push('/');
+const LoginPage = ({login, error}) => {
+
+	const onSubmit = (data) => {
+		login(data);
 	};
 
 	return (
 		<Container maxW="container.sm" my={5}>
-			<AuthForm handleSubmit={onSubmit} type="Login" />
+			<AuthForm handleSubmit={onSubmit} type="Login" error={error}/>
 		</Container>
 	);
 };
 
-export default LoginPage;
+const mapStateToProps = (state) => {
+	return {
+		error: {
+			email: state.auth.error?.email,
+			password: state.auth.error?.password,
+		}
+	}
+};
+
+export default connect(mapStateToProps, { login })(LoginPage);

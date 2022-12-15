@@ -1,8 +1,8 @@
 export const validateRegistration = (values) => {
 	const errors = {};
 	
-	if (!values.name) {
-		errors.name = 'Required';
+	if (!values.username) {
+		errors.username = 'Required';
 	}
 	if (!values.email) {
 		errors.email = 'Required';

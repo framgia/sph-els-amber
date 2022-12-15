@@ -1,8 +1,14 @@
 import React from 'react';
-import { Flex, Box, Heading, Spacer, ButtonGroup } from '@chakra-ui/react';
+import { connect } from 'react-redux';
+import { Flex, Box, Heading, Spacer, ButtonGroup, Button } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import { logout } from '../actions';
 
-const Header = ({ isAuthenticated }) => {
+const Header = ({ token, logout }) => {
+	const handleClick = () => {
+		logout();
+	}
+
 	return (
 		<Flex minWidth="max-content" alignItems="center" bg="blue.300" gap={2} p={2}>
 			<Box p={2}>
@@ -10,11 +16,12 @@ const Header = ({ isAuthenticated }) => {
 			</Box>
 			<Spacer />
 			<ButtonGroup gap={2}>
-				{ !! isAuthenticated && (
+				{ !! token && (
 					<>
 						<Link to="/">Dashboard</Link>
 						<Link to="/categories">Categories</Link>
 						<Link to="#">Profile</Link>
+						<Button variant='link' color="black" onClick={handleClick}>Logout</Button>
 					</>
 					)
 				}
@@ -23,4 +30,10 @@ const Header = ({ isAuthenticated }) => {
 	);
 };
 
-export default Header;
+const mapStateToProps = (state) => {
+	return {
+		token: state.auth.token
+	}
+}
+
+export default connect(mapStateToProps, { logout })(Header);

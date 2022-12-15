@@ -14,7 +14,7 @@ import { Form } from 'react-final-form';
 import { validateRegistration, validateLogin } from './validate';
 import InputControl from '../../components/authForm/InputControl';
 
-const AuthForm = ({ type, handleSubmit }) => {
+const AuthForm = ({ type, handleSubmit, error }) => {
 	return (
 		<Card variant="outline" px={10}>
 			<CardHeader align="center" pb={0}>
@@ -28,20 +28,23 @@ const AuthForm = ({ type, handleSubmit }) => {
 						<form onSubmit={handleSubmit}>
 							{type === 'Register' && (
 								<InputControl
-									name="name"
+									name="username"
 									label="Name"
 									type="text"
+									error={error?.username}
 								/>
 							)}
 							<InputControl
 								name="email"
 								label="Email Address"
 								type="text"
+								error={error?.email}
 							/>
 							<InputControl
 								name="password"
 								label="Password"
 								type="password"
+								error={error?.password}
 							/>
 							{type === 'Register' && (
 								<InputControl
