@@ -24,11 +24,11 @@ export const register = (data) => async (dispatch) => {
 	} catch (e) {
 		let error = {
 			username:
-				e.response.data?.username?.length > 0
+				!!e.response.data?.username?.length
 					? e.response.data?.username[0]
 					: null,
 			email:
-				e.response.data?.email?.length > 0
+				!!e.response.data?.email?.length
 					? e.response.data?.email[0]
 					: null,
 		};
