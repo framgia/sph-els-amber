@@ -12,6 +12,10 @@ import {
 	CREATE_ANSWER,
 	FETCH_ANSWERS,
 	FETCH_CATEGORIES,
+	FETCH_USER,
+	FETCH_ACTIVITIES,
+	CREATE_ACTIVITY,
+	FETCH_LEARNED_LESSONS
 } from './types';
 import history from '../history';
 
@@ -62,15 +66,15 @@ export const logout = () => async (dispatch) => {
 		dispatch({ type: LOGOUT, payload: response.data });
 		history.push('/login');
 	} catch (e) {
-		dispatch({type: LOGOUT_ERROR, payload: e.response.data.detail})
+		dispatch({ type: LOGOUT_ERROR, payload: e.response.data.detail })
 	}
 };
 
 export const fetchCategories = () => async (dispatch) => {
 	const response = await api.get(`/api/categories/`);
 
-	dispatch({ type: FETCH_CATEGORIES, payload: response.data });
-};
+    dispatch({type: FETCH_CATEGORIES, payload: response.data});
+}
 
 export const fetchLesson = (id) => async (dispatch) => {
 	const response = await api.get(`/api/lessons/${id}/`);
@@ -97,7 +101,32 @@ export const createAnswer = (data) => async (dispatch) => {
 };
 
 export const fetchAnswers = (lesson_id, user_id) => async (dispatch) => {
-	const response = await api.get(`/api/answers/?lesson=${lesson_id}&user=${user_id}`);
+	let params = lesson_id ? { lesson: lesson_id, user: user_id } : { user: user_id }
+	const response = await api.get(`api/answers/`, { params: params });
 
 	dispatch({ type: FETCH_ANSWERS, payload: response.data });
 };
+
+export const fetchUser = (id) => async (dispatch) => {
+	const response = await api.get(`api/users/${id}`);
+
+	dispatch({ type: FETCH_USER, payload: response.data });
+}
+
+export const fetchActivities = () => async (dispatch) => {
+	const response = await api.get(`api/activity/`);
+
+	dispatch({ type: FETCH_ACTIVITIES, payload: response.data });
+}
+
+export const createActivity = (data) => async (dispatch) => {
+	const response = await api.post(`api/activity/`, data);
+
+	dispatch({ type: CREATE_ACTIVITY, payload: response.data });
+}
+
+export const fetchLearnedLessons = (user_id) => async (dispatch) => {
+	const response = await api.get(`api/activity/`, { params: { user: user_id }});
+
+	dispatch({ type: FETCH_LEARNED_LESSONS, payload: response.data });
+}

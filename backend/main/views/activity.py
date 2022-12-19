@@ -4,8 +4,14 @@ from ..serializers.activity_serializer import ActivitySerializer
 from ..models.activity import ActivityLog
 
 class ActivityList(generics.ListCreateAPIView):
-    queryset = ActivityLog.objects.filter(is_deleted=False)
     serializer_class = ActivitySerializer
+
+    def get_queryset(self):
+        queryset = ActivityLog.objects.filter(is_deleted=False)
+        user = self.request.query_params.get('user')
+        if user is not None:
+            queryset = queryset.filter(user=user)
+        return queryset
 
 class ActivityDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ActivityLog.objects.filter(is_deleted=False)

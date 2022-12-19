@@ -14,8 +14,8 @@ const WordsLearned = ({ data }) => {
 	const renderTableData = (words) => {
 		return words.map((data) => (
 			<Tr key={data.id}>
-				<Td textAlign="center">{data.word}</Td>
-				<Td textAlign="center">{data.answer}</Td>
+				<Td textAlign="center">{data.question_word}</Td>
+				<Td textAlign="center">{data.choice_string}</Td>
 			</Tr>
 		));
 	};
@@ -36,14 +36,9 @@ const WordsLearned = ({ data }) => {
 		);
 	};
 
-	const mid = Math.ceil(data.length / 2);
-	const firstHalf = data.slice().splice(0, mid);
-	const secondHalf = data.slice().splice(-mid);
-
 	return (
-		<SimpleGrid columns={2} spacing={10}>
-			{renderTable(firstHalf)}
-			{renderTable(secondHalf)}
+		<SimpleGrid columns={1} spacing={10}>
+			{renderTable(data)}
 		</SimpleGrid>
 	);
 };

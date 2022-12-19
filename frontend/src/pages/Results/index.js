@@ -26,11 +26,12 @@ const ResultsPage = ({
 	lesson,
 	questions,
 	answers,
+	user_id
 }) => {
 	useEffect(() => {
 		fetchLesson(match.params.id);
 		fetchQuestions(match.params.id);
-		fetchAnswers(match.params.id, 1);
+		fetchAnswers(match.params.id, user_id);
 	}, []);
 
 	const renderTableData = (questions) => {
@@ -97,6 +98,7 @@ const ResultsPage = ({
 
 const mapStateToProps = (state, ownProps) => {
 	return {
+		user_id: state.auth.id,
 		lesson: state.lessons[ownProps.match.params.id],
 		questions: Object.values(state.questions),
 		answers: Object.values(state.answers),

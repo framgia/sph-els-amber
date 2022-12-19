@@ -1,26 +1,38 @@
 from rest_framework import generics
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
 from ..serializers.answer_serializer import AnswerSerializer
 from ..models.answer import Answer
+from ..models.choice import Choice
+from ..models.question import Question
 
-class AnswerList(APIView):
-    def get(self, request):
-        get_data = request.query_params
-        answers = Answer.objects.filter(lesson=get_data['lesson'], user=get_data['user'])
-        serializer = AnswerSerializer(answers, context={'request': request}, many=True)
+class AnswerList(generics.ListCreateAPIView):
+    serializer_class = AnswerSerializer
 
-        return Response(serializer.data)
+    def get_queryset(self):
+        queryset = Answer.objects.filter(is_deleted=False)
+        lesson = self.request.query_params.get('lesson')
+        user = self.request.query_params.get('user')
 
-    def post(self, request):
-        serializer = AnswerSerializer(data=request.data, context={'request': request})
+        if user is not None and lesson is not None:
+            queryset = queryset.filter(user=user, lesson=lesson)
+        elif user is not None:
+            queryset = queryset.filter(user=user)
+        return queryset
 
-        serializer.is_valid(raise_exception=True)
-        serializer.save(serializer.validated_data)
+    def perform_create(self, serializer):
+        choice = Choice.objects.get(pk=serializer.data['choice'])
+        question = Question.objects.get(pk=serializer.data['question'])
+        is_correct = True if question.correct_answer == choice.value else False
 
-        return Response('Answer added', status=status.HTTP_201_CREATED)
-           
+        answer = Answer.objects.create(
+            user=serializer.validated_data['user'],
+            question=serializer.validated_data['question'],
+            lesson=serializer.validated_data['lesson'],
+            choice=serializer.validated_data['choice'],
+            is_correct=is_correct
+        )
+        
+        data = answer.save()
+        return data           
   
 class AnswerDetail(generics.RetrieveAPIView):
     queryset = Answer.objects.all()

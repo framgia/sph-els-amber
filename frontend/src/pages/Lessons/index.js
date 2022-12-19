@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchLesson, fetchQuestions, createAnswer } from '../../actions';
+import { fetchLesson, fetchQuestions, createAnswer, createActivity } from '../../actions';
 import { Text, Box, SimpleGrid, Container, Button } from '@chakra-ui/react';
 import Question from './Question';
 import history from '../../history';
 
-const LessonPage = ({ fetchLesson, fetchQuestions, createAnswer, match, lesson, questions }) => {
+const LessonPage = ({ fetchLesson, fetchQuestions, createAnswer, createActivity, match, lesson, questions, user_id }) => {
 	
 	useEffect(() => {
 		fetchLesson(match.params.id);
@@ -19,7 +19,13 @@ const LessonPage = ({ fetchLesson, fetchQuestions, createAnswer, match, lesson, 
 		localAnswer.forEach((answer) => {
 			createAnswer(answer);
 		})
-		
+
+		let activityLog = {
+			user: user_id,
+			lesson: match.params.id
+		}
+
+		createActivity(activityLog);
 		history.push(`results/`);
 	};
 
@@ -70,7 +76,7 @@ const LessonPage = ({ fetchLesson, fetchQuestions, createAnswer, match, lesson, 
 						key={question.id}
 						updateProgress={updateProgress}
 						storeAnswer={storeAnswer}
-						user={1}
+						user={user_id}
 						question={question}
 						lessonId={lesson?.id}
 					/>
@@ -98,6 +104,7 @@ const LessonPage = ({ fetchLesson, fetchQuestions, createAnswer, match, lesson, 
 
 const mapStateToProps = (state, ownProps) => {
 	return {
+		user_id: state.auth.id,
 		lesson: state.lessons[ownProps.match.params.id],
 		questions: Object.values(state.questions),
 	};
@@ -106,5 +113,6 @@ const mapStateToProps = (state, ownProps) => {
 export default connect(mapStateToProps, {
 	fetchLesson,
 	fetchQuestions,
-	createAnswer
+	createAnswer,
+	createActivity,
 })(LessonPage);
