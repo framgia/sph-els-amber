@@ -8,6 +8,8 @@ import CategoriesPage from '../pages/Categories';
 import DashboardPage from '../pages/Dashboard';
 import RegisterPage from '../pages/Registration';
 import LoginPage from '../pages/Login';
+import UserProfile from '../pages/UserProfile';
+import UserEdit from '../pages/UserEdit';
 import history from '../history';
 
 const App = ({ token }) => {
@@ -38,6 +40,16 @@ const App = ({ token }) => {
 							path="/lessons/:id/results"
 							exact
 							component={ResultsPage}
+						/>
+						<Route
+							path="/profile/:id"
+							exact
+							component={UserProfile}
+						/>
+						<Route
+							path="/profile/:id/edit"
+							exact
+							component={UserEdit}
 						/>
 					</>
 				) : (
