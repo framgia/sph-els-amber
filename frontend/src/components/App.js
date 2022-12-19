@@ -44,16 +44,7 @@ const App = ({ token }) => {
 					<>
 						<Route path="/register" exact component={RegisterPage} />
 						<Route path="/login" exact component={LoginPage} />
-						<Route path="/" exact>
-							<Redirect to="/login" />
-						</Route>
-						<Route path="/categories" exact>
-							<Redirect to="/login" />
-						</Route>
-						<Route path="/lessons/:id" exact>
-							<Redirect to="/login" />
-						</Route>
-						<Route path="/lessons/:id/results" exact>
+						<Route path="/">
 							<Redirect to="/login" />
 						</Route>
 					</>

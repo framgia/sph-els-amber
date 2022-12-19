@@ -4,7 +4,8 @@ from ..models.choice import Choice
 from ..models.question import Question
 
 class AnswerSerializer(serializers.ModelSerializer):
-    choice_string = serializers.SerializerMethodField('get_choice_string')
+    choice_string = serializers.SerializerMethodField()
+    question_word = serializers.SerializerMethodField()
 
     class Meta:
         model = Answer
@@ -16,17 +17,8 @@ class AnswerSerializer(serializers.ModelSerializer):
             choice = Choice.objects.get(pk=obj.choice_id)
             return choice.value
 
-    def save(self, validated_data):
-        choice = Choice.objects.get(pk=self.data['choice'])
-        question = Question.objects.get(pk=self.data['question'])
-        is_correct = True if question.correct_answer == choice.value else False
-
-        answer = Answer.objects.create(
-            user=validated_data['user'],
-            question=validated_data['question'],
-            lesson=validated_data['lesson'],
-            choice=validated_data['choice'],
-            is_correct=is_correct,
-        )
-        
-        return answer
+    def get_question_word(self, obj):
+        method = self.context['request'].method
+        if method == 'GET':
+            question = Question.objects.get(pk=obj.question_id)
+            return question.word
