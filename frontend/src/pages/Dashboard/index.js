@@ -100,7 +100,6 @@ const DashboardPage = ({
 										onClick={renderActivities}>
 										Activity Log
 									</Button>
-									<br />
 								</>
 							) : (
 								<Text>Learned {lessonCount} lessons</Text>
