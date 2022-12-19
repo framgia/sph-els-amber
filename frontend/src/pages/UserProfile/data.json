@@ -1,0 +1,63 @@
+{
+    "user": {
+        "id": 1,
+        "name": "Anya Forger"
+    },
+    "headers": [
+        {
+            "id" : 1,
+            "title": "Activity Log"
+        }, 
+        {
+            "id" : 2,
+            "title": "Words Learned"
+        }
+    ],
+    "activities": [
+        {
+            "id": 1,
+            "lesson": null,
+            "user": "Anya Forger",
+            "user_relations": "Loid Forger"
+        },
+        {
+            "id": 2,
+            "lesson": null,
+            "user": "Anya Forger",
+            "user_relations": "Damian Desmond"
+        },
+        {
+            "id": 3,
+            "lesson": null,
+            "user": "Anya Forger",
+            "user_relations": "Yor Forger"
+        }
+    ],
+    "words": [
+        {
+            "id": 1,
+            "word": "Magandang umaga",
+            "answer": "Good morning"
+        },
+        {
+            "id": 2,
+            "word": "Magandang gabi",
+            "answer": "Good evening"
+        },
+        {
+            "id": 3,
+            "word": "Ingat",
+            "answer": "Take care"
+        },
+        {
+            "id": 4,
+            "word": "Kamusta ka?",
+            "answer": "How are you?"
+        },
+        {
+            "id": 5,
+            "word": "Salamat",
+            "answer": "Thank you"
+        }
+    ]
+}

@@ -4,7 +4,7 @@ import { Flex, Box, Heading, Spacer, ButtonGroup, Button } from '@chakra-ui/reac
 import { Link } from 'react-router-dom';
 import { logout } from '../actions';
 
-const Header = ({ token, logout }) => {
+const Header = ({ token, logout, user_id }) => {
 	const handleClick = () => {
 		logout();
 	}
@@ -20,7 +20,7 @@ const Header = ({ token, logout }) => {
 					<>
 						<Link to="/">Dashboard</Link>
 						<Link to="/categories">Categories</Link>
-						<Link to="#">Profile</Link>
+						<Link to={`/profile/${user_id}/`}>Profile</Link>
 						<Button variant='link' color="black" onClick={handleClick}>Logout</Button>
 					</>
 					)
@@ -32,7 +32,8 @@ const Header = ({ token, logout }) => {
 
 const mapStateToProps = (state) => {
 	return {
-		token: state.auth.token
+		token: state.auth.token,
+		user_id: state.auth.id
 	}
 }
 
