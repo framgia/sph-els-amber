@@ -12,9 +12,9 @@ class AnswerList(generics.ListCreateAPIView):
         lesson = self.request.query_params.get('lesson')
         user = self.request.query_params.get('user')
 
-        if user is not None and lesson is not None:
+        if user and lesson :
             queryset = queryset.filter(user=user, lesson=lesson)
-        elif user is not None:
+        elif user:
             queryset = queryset.filter(user=user)
         return queryset
 

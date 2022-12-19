@@ -25,19 +25,19 @@ class ActivitySerializer(serializers.ModelSerializer):
 
     def get_category(self, obj):
         method = self.context['request'].method
-        if method == 'GET' and obj.lesson_id != None:
+        if method == 'GET' and obj.lesson_id:
             lesson = Lesson.objects.get(id=obj.lesson_id)
             category = Category.objects.get(id=lesson.category_id)
             return category.title
 
     def get_result(self, obj):
         method = self.context['request'].method
-        if method == 'GET' and obj.lesson_id != None:
+        if method == 'GET' and obj.lesson_id:
             answers = Answer.objects.filter(lesson=obj.lesson_id, user=obj.user_id, is_correct=True)
             return answers.count()
 
     def get_question_count(self, obj):
         method = self.context['request'].method
-        if method == 'GET' and obj.lesson_id != None:
+        if method == 'GET' and obj.lesson_id:
             questions = Question.objects.filter(lesson=obj.lesson_id)
             return questions.count()

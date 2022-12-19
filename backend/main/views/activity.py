@@ -9,7 +9,7 @@ class ActivityList(generics.ListCreateAPIView):
     def get_queryset(self):
         queryset = ActivityLog.objects.filter(is_deleted=False)
         user = self.request.query_params.get('user')
-        if user is not None:
+        if user:
             queryset = queryset.filter(user=user)
         return queryset
 
